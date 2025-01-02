@@ -20,16 +20,18 @@
 
     #game-board {
       display: grid;
-      grid-template-columns: repeat(4, 100px);
-      grid-template-rows: repeat(4, 100px);
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(4, 1fr);
       gap: 10px;
       margin-bottom: 20px;
       position: relative;
+      width: 80vw;  /* Задаём ширину доски как 80% от ширины экрана */
+      height: 80vw; /* Высота доски тоже 80% от ширины экрана для квадратного вида */
     }
 
     .tile {
-      width: 100px;
-      height: 100px;
+      width: 100%;
+      height: 100%;
       background-color: #9ac5e8;
       display: flex;
       align-items: center;
@@ -40,7 +42,6 @@
       transition: transform 0.1s ease, background-color 0.3s ease;
     }
 
-    /* Уникальные цвета для разных значений */
     .tile-2 { background-color: #eee4da; }
     .tile-4 { background-color: #ede0c8; }
     .tile-8 { background-color: #f2b179; }
@@ -71,34 +72,19 @@
       background-color: #03dac6;
     }
 
-    /* Стили для анимации */
-    .move {
-      animation: moveTile 0.2s ease;
-    }
-
-    @keyframes moveTile {
-      from {
-        transform: translate(0, 0);
-      }
-      to {
-        transform: translate(var(--dx), var(--dy));
-      }
-    }
-
-    /* Контейнер для кнопок */
     .button-container {
       display: flex;
       justify-content: center;
       gap: 10px;
       margin-top: 20px;
     }
+
   </style>
 </head>
 <body>
 
   <div id="game-board"></div>
 
-  <!-- Контейнер для кнопок -->
   <div class="button-container">
     <button onclick="endGame()">Завершить игру</button>
     <button onclick="goBack()">Назад</button>
@@ -141,6 +127,7 @@
       }
     }
 
+    // Функции для перемещения плиток
     function moveLeft() {
       let moved = false;
       for (let i = 0; i < boardSize; i++) {
@@ -164,18 +151,49 @@
         placeRandomTile();
         renderBoard();
       }
-    }
+    }// Обработчики для свайпов
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    });
+
+    document.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+
+      const diffX = touchEndX - touchStartX;
+      const diffY = touchEndY - touchStartY;
+
+      if (Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX > 0) {
+          // Swipe Right
+          console.log('Swipe Right');
+        } else {
+          // Swipe Left
+          console.log('Swipe Left');
+        }
+      } else {
+        if (diffY > 0) {
+          // Swipe Down
+          console.log('Swipe Down');
+        } else {
+          // Swipe Up
+          console.log('Swipe Up');
+        }
+      }
+    });
 
     function endGame() {
       alert("Игра завершена!");
     }
 
-    // Функция для кнопки "Назад"
     function goBack() {
       window.history.back(); // Возвращает на предыдущую страницу
     }
 
-    // Запуск игры
     startGame();
   </script>
 
