@@ -25,8 +25,8 @@
       gap: 10px;
       margin-bottom: 20px;
       position: relative;
-      width: 80vw;  /* Задаём ширину доски как 80% от ширины экрана */
-      height: 80vw; /* Высота доски тоже 80% от ширины экрана для квадратного вида */
+      width: 80vw;
+      height: 80vw;
     }
 
     .tile {
@@ -151,7 +151,20 @@
         placeRandomTile();
         renderBoard();
       }
-    }// Обработчики для свайпов
+    }
+
+    function moveRight() {
+      // Аналогично moveLeft, но с движением вправо
+    }
+
+    function moveUp() {// Реализуйте движение вверх
+    }
+
+    function moveDown() {
+      // Реализуйте движение вниз
+    }
+
+    // Обработчики для свайпов
     let touchStartX = 0;
     let touchStartY = 0;
 
@@ -170,18 +183,18 @@
       if (Math.abs(diffX) > Math.abs(diffY)) {
         if (diffX > 0) {
           // Swipe Right
-          console.log('Swipe Right');
+          moveRight();
         } else {
           // Swipe Left
-          console.log('Swipe Left');
+          moveLeft();
         }
       } else {
         if (diffY > 0) {
           // Swipe Down
-          console.log('Swipe Down');
+          moveDown();
         } else {
           // Swipe Up
-          console.log('Swipe Up');
+          moveUp();
         }
       }
     });
@@ -191,7 +204,7 @@
     }
 
     function goBack() {
-      window.history.back(); // Возвращает на предыдущую страницу
+      window.history.back();
     }
 
     startGame();
