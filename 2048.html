@@ -195,20 +195,21 @@
       const diffX = touchEndX - touchStartX;
       const diffY = touchEndY - touchStartY;
 
+      // Проверка направления свайпа
       if (Math.abs(diffX) > Math.abs(diffY)) {
         if (diffX > 0) {
-          // Swipe Right
+          // Свайп вправо
           moveRight();
         } else {
-          // Swipe Left
+          // Свайп влево
           moveLeft();
         }
       } else {
         if (diffY > 0) {
-          // Swipe Down
+          // Свайп вниз
           moveDown();
         } else {
-          // Swipe Up
+          // Свайп вверх
           moveUp();
         }
       }
