@@ -154,14 +154,29 @@
     }
 
     function moveRight() {
-      // Аналогично moveLeft, но с движением вправо
+      for (let i = 0; i < boardSize; i++) {
+        board[i].reverse();
+      }moveLeft();
+      for (let i = 0; i < boardSize; i++) {
+        board[i].reverse();
+      }
     }
 
-    function moveUp() {// Реализуйте движение вверх
+    function moveUp() {
+      board = rotateBoard(board, true);
+      moveLeft();
+      board = rotateBoard(board, false);
     }
 
     function moveDown() {
-      // Реализуйте движение вниз
+      board = rotateBoard(board, true);
+      moveRight();
+      board = rotateBoard(board, false);
+    }
+
+    // Вспомогательная функция для поворота доски
+    function rotateBoard(board, counterClockwise = false) {
+      return board[0].map((_, index) => board.map(row => row[index])).reverse();
     }
 
     // Обработчики для свайпов
